@@ -37,5 +37,11 @@ class Orders extends MY_Model {
     function validate($num) {
         return false;
     }
+    
+    /* Retrieve some orders */
+    function some($what, $which)
+    {
+        $this->db->query("SELECT * FROM orders WHERE status = 'c'");
+    }
 
 }
