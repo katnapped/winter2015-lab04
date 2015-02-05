@@ -24,7 +24,6 @@ class Order extends Application {
         /* Instantiate new order object */
         $newOrder = $this->orders->create();
         
-        
         $newOrderNum = $this->orders->highest() + 1;
         $newOrder->num = $newOrderNum;
         $newOrder->date = date('Y-m-d H:i:s'); 
@@ -39,17 +38,23 @@ class Order extends Application {
     // add to an order
     function display_menu($order_num = null) {
         if ($order_num == null)
+        {
             redirect('/order/neworder');
+        }
 
+        /* Retrieve the order */
+        $this->orders->get($order_num);
+        
         $this->data['pagebody'] = 'show_menu';
         $this->data['order_num'] = $order_num;
         //FIXME
+        $this->data['title'] = 'Order #' . $order_num . ' (' . 
 
         // Make the columns
         $this->data['meals'] = $this->make_column('m');
         $this->data['drinks'] = $this->make_column('d');
         $this->data['sweets'] = $this->make_column('s');
-
+       
 	// Bit of a hokey patch here, to work around the problem of the template
 	// parser no longer allowing access to a parent variable inside a
 	// child loop - used for the columns in the menu display.
