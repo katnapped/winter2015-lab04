@@ -11,7 +11,7 @@ class Orders extends MY_Model {
     function __construct() {
         parent::__construct('orders', 'num');
     }
-
+    
     // add an item to an order
     function add_item($num, $code) {
         
@@ -37,11 +37,4 @@ class Orders extends MY_Model {
     function validate($num) {
         return false;
     }
-    
-    /* Retrieve some orders */
-    function some($what, $which)
-    {
-        $this->db->query("SELECT * FROM orders WHERE status = 'c'");
-    }
-
 }

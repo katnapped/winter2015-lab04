@@ -19,6 +19,20 @@ class Order extends Application {
     function neworder() {
         //FIXME
 
+        date_default_timezone_set('Canada/Pacific');
+        
+        /* Instantiate new order object */
+        $newOrder = $this->orders->create();
+        
+        
+        $newOrderNum = $this->orders->highest() + 1;
+        $newOrder->num = $newOrderNum;
+        $newOrder->date = date('Y-m-d H:i:s'); 
+        $newOrder->status = 'a';
+        $newOrder->total = 0;
+        
+        $this->orders->add($newOrder);
+        
         redirect('/order/display_menu/' . $order_num);
     }
 
