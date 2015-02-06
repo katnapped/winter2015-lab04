@@ -32,7 +32,7 @@ class Order extends Application {
         
         $this->orders->add($newOrder);
         
-        redirect('/order/display_menu/' . $order_num);
+        redirect('/order/display_menu/' . $newOrderNum);
     }
 
     // add to an order
@@ -43,12 +43,13 @@ class Order extends Application {
         }
 
         /* Retrieve the order */
-        $this->orders->get($order_num);
+        $currentOrder = $this->orders->get($order_num);
+        
         
         $this->data['pagebody'] = 'show_menu';
         $this->data['order_num'] = $order_num;
         //FIXME
-        $this->data['title'] = 'Order #' . $order_num . ' (' . 
+        $this->data['title'] = 'Order #' . $order_num . ' (' . $currentOrder->total . ')';
 
         // Make the columns
         $this->data['meals'] = $this->make_column('m');
@@ -83,12 +84,14 @@ class Order extends Application {
     // make a menu ordering column
     function make_column($category) {
         //FIXME
-        return $items;
+        return $this->menu->some('category', $category);
     }
 
     // add an item to an order
     function add($order_num, $item) {
         //FIXME
+        $this->orders->add_item($order_num, $item);
+        
         redirect('/order/display_menu/' . $order_num);
     }
 
